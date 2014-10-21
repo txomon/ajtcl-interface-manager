@@ -25,7 +25,7 @@ void AJ_Free(void* mem)
     }
 }
 
-AJ_InterfaceDescription AJ_InterfaceDescriptionCreate(char *interfaceName)
+AJ_InterfaceDescription* AJ_InterfaceDescriptionCreate(char *interfaceName)
 {
     char **interface;
     interface = AJ_Malloc(sizeof(char*) * 2);
@@ -42,7 +42,7 @@ AJ_InterfaceDescription AJ_InterfaceDescriptionCreate(char *interfaceName)
 
     strcpy(interface[0], interfaceName);
 
-    return (AJ_InterfaceDescription) interface;
+    return (AJ_InterfaceDescription*) interface;
 }
 
 AJ_Status AJ_InterfaceDescriptionAdd(AJ_InterfaceDescription *interfaceDescription, char *description)
@@ -58,7 +58,7 @@ AJ_Status AJ_InterfaceDescriptionAdd(AJ_InterfaceDescription *interfaceDescripti
     iter = AJ_Realloc(*interfaceDescription, sizeof(char*) * (size + 2));
     if (!iter)
         return AJ_ERR_UNKNOWN;
-    interfaceDescription = iter;
+    interfaceDescription = (AJ_InterfaceDescription*) iter;
 
     iter[size] = AJ_Malloc(strlen(description) + 1);
     if (!iter[size]) {
