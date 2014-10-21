@@ -1,0 +1,5 @@
+language: c
+install:
+  - "sudo apt-get build-essential"
+script:
+  - "gcc -o ajtcl-interface-manager -Wall -Werror *.c"
