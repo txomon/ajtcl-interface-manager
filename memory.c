@@ -60,17 +60,17 @@ AJ_InterfaceDescription* AJ_InterfaceDescriptionCreate(char *interfaceName)
 AJ_Status AJ_InterfaceDescriptionAdd(AJ_InterfaceDescription *interfaceDescription, char *description)
 {
     int size = 0;
-    char **iter = (char **) *interfaceDescription;
+    char **iter = (char **) interfaceDescription;
 
     while (*iter) {
         iter++;
         size++;
     }
 
-    iter = AJ_Realloc(*interfaceDescription, sizeof(char*) * (size + 2));
+    iter = AJ_Realloc(interfaceDescription, sizeof(char*) * (size + 2));
     if (!iter)
         return AJ_ERR_UNKNOWN;
-    interfaceDescription = (AJ_InterfaceDescription*) iter;
+    interfaceDescription = (AJ_InterfaceDescription *) iter;
 
     iter[size] = AJ_Malloc(strlen(description) + 1);
     if (!iter[size]) {
@@ -79,7 +79,7 @@ AJ_Status AJ_InterfaceDescriptionAdd(AJ_InterfaceDescription *interfaceDescripti
 
     strcpy(iter[size], description);
 
-    iter[size+1] = NULL;
+    iter[size + 1] = NULL;
 
     return AJ_OK;
 }
