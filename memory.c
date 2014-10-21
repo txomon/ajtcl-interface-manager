@@ -58,7 +58,7 @@ AJ_Status AJ_InterfaceDescriptionAdd(AJ_InterfaceDescription *interfaceDescripti
     iter = AJ_Realloc(*interfaceDescription, sizeof(char*) * (size + 2));
     if (!iter)
         return AJ_ERR_UNKNOWN;
-    *interfaceDescription = iter;
+    interfaceDescription = iter;
 
     iter[size] = AJ_Malloc(strlen(description) + 1);
     if (!iter[size]) {
