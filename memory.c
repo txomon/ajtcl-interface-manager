@@ -9,20 +9,32 @@
 #include <stdio.h>
 #include <string.h>
 
-void* AJ_Malloc(size_t sz)
+AJ_InterfaceDescription* AJ_InterfacesCreate()
 {
-    return malloc(sz);
-}
-void* AJ_Realloc(void* ptr, size_t size)
-{
-    return realloc(ptr, size);
+    char ***array;
+    array = AJ_Malloc(sizeof(char**));
+    array[0] = NULL;
+    return (AJ_InterfaceDescription *) array;
 }
 
-void AJ_Free(void* mem)
+AJ_Status AJ_InterfacesAdd(AJ_InterfaceDescription *array, AJ_InterfaceDescription *item)
 {
-    if (mem) {
-        free(mem);
-    }
+    int size = 0;
+    char ***iter = (char ***) array;
+
+    while (iter[size])
+        size++;
+
+    iter = AJ_Realloc(array, sizeof(char**) * (size + 2));
+    if (!iter)
+        return AJ_ERR_UNKNOWN;
+
+    array = (AJ_InterfaceDescription*) iter;
+
+    iter[size] = (char **) item;
+    iter[size + 1] = NULL;
+
+    return AJ_OK;
 }
 
 AJ_InterfaceDescription* AJ_InterfaceDescriptionCreate(char *interfaceName)
